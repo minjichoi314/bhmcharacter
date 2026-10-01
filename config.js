@@ -1,11 +1,11 @@
 window.APP_CONFIG = {
   // Supabase Dashboard > Project Settings > API
-  SUPABASE_URL: "https://YOUR_PROJECT_ID.supabase.co",
+  SUPABASE_URL: "https://bqxiynipuynejmxbcxwv.supabase.co/rest/v1/",
 
   // 브라우저에 넣어도 되는 공개 키만 사용하세요.
   // 새 프로젝트: sb_publishable_...
   // 구 프로젝트: eyJ... 형태의 anon public key
-  SUPABASE_ANON_KEY: "YOUR_PUBLIC_ANON_OR_PUBLISHABLE_KEY",
+  SUPABASE_ANON_KEY: "sb_publishable_klZA8aUBI1uJNQ3JHQcehA_0vlQFRYp",
 
   EVENT_ID: "festival-2026",
   EVENT_NAME: "우리의 축제 한 장",
