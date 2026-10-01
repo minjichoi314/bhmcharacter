@@ -1,6 +1,6 @@
 window.APP_CONFIG = {
   // Supabase Dashboard > Project Settings > API
-  SUPABASE_URL: "https://bqxiynipuynejmxbcxwv.supabase.co/rest/v1/",
+  SUPABASE_URL: "https://bqxiynipuynejmxbcxwv.supabase.co",
 
   // 브라우저에 넣어도 되는 공개 키만 사용하세요.
   // 새 프로젝트: sb_publishable_...
