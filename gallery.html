@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#245444">
+  <title>디지털 갤러리</title>
+  <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body class="gallery-page">
+  <div class="board-frame">
+    <div class="chalk-doodle chalk-1">☆ ♡</div>
+    <div class="chalk-doodle chalk-2">우리 축제!</div>
+    <div class="chalk-doodle chalk-3">2026</div>
+    <div class="chalk-doodle chalk-4">☺</div>
+
+    <main class="gallery-shell">
+      <header class="gallery-head">
+        <p class="eyebrow">DIGITAL GALLERY</p>
+        <h1 id="eventName">우리의 축제 한 장</h1>
+        <p>학생들이 만든 그림과 축제 소감이 이 칠판에 하나씩 붙습니다.</p>
+        <div id="galleryStatus" class="gallery-status"></div>
+      </header>
+
+      <section id="galleryGrid" class="gallery-grid" aria-live="polite"></section>
+      <div id="emptyState" class="empty-board">첫 작품을 기다리고 있어요 :)</div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./config.js"></script>
+  <script src="./assets/supabase.js"></script>
+  <script src="./assets/gallery.js"></script>
+</body>
+</html>
