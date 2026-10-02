@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>운영자 관리</title>
+  <style>
+    body{font-family:system-ui,-apple-system,"Apple SD Gothic Neo",sans-serif;margin:0;background:#f5f5f5;color:#222}
+    main{max-width:1200px;margin:0 auto;padding:28px}
+    table{width:100%;border-collapse:collapse;background:#fff}
+    th,td{padding:10px;border-bottom:1px solid #ddd;text-align:left;vertical-align:top}
+    .admin-thumb{width:120px;height:80px;object-fit:cover}
+    .admin-actions{display:flex;gap:8px}
+    .small-btn{padding:7px 10px;border:1px solid #333;border-radius:9px;background:#fff;font-weight:700}
+    .approve{background:#c9f0ad}
+    .hide{background:#ffd0cc}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>운영자 관리</h1>
+    <p id="adminStatus"></p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>작품</th>
+          <th>시간</th>
+          <th>상태</th>
+          <th>관리</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./config.js"></script>
+  <script src="./assets/supabase.js"></script>
+  <script src="./assets/admin.js"></script>
+</body>
+</html>

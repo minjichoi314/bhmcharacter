@@ -1,0 +1,10 @@
+window.APP_CONFIG = {
+  SUPABASE_URL: "https://YOUR_PROJECT_ID.supabase.co",
+  SUPABASE_ANON_KEY: "YOUR_PUBLIC_ANON_OR_PUBLISHABLE_KEY",
+
+  EVENT_ID: "festival-2026",
+  EVENT_NAME: "우리의 축제 한 장",
+
+  AUTO_RESET_SECONDS: 10,
+  AUTO_APPROVE: true
+};
