@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f2d775">
+  <title>우리의 축제 한 장</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&display=swap');
+    *{box-sizing:border-box} html,body{margin:0;min-height:100%}
+    body{color:#2f2a25;background:#f2d775;font-family:"Gaegu","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}
+    button,input{font:inherit} button{cursor:pointer}
+    .page{width:min(1460px,100%);margin:0 auto;padding:24px clamp(16px,3vw,40px) 34px}
+    .header{margin-bottom:14px}
+    .header h1{margin:0;font-family:"Nanum Pen Script","Gaegu",cursive;font-size:clamp(2.8rem,5vw,4.8rem);font-weight:400;line-height:1}
+    .header p{margin:7px 0 0;color:#6b5d38;font-weight:700;font-size:1.06rem}
+    .book{position:relative;padding:44px clamp(14px,2.6vw,34px) 28px;background:#fffdf7;border-radius:14px 14px 28px 28px;box-shadow:0 18px 40px rgba(65,46,15,.15)}
+    .rings{position:absolute;top:0;left:28px;right:28px;height:34px;display:flex;justify-content:space-around;pointer-events:none}
+    .rings span{position:relative;width:9px;height:22px;background:#efd16f;border-radius:0 0 8px 8px}
+    .rings span::after{content:"";position:absolute;left:50%;bottom:-9px;width:18px;height:18px;transform:translateX(-50%);border-radius:50%;background:#efd16f}
+    .toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+    .palette{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+    .color-dot{width:34px;height:34px;padding:0;border:3px solid #fff;border-radius:50%;background:var(--dot);box-shadow:0 0 0 1px rgba(0,0,0,.16);transition:transform .12s ease,box-shadow .12s ease}
+    .color-dot.selected{transform:scale(1.16);box-shadow:0 0 0 3px rgba(85,74,58,.4)}
+    .controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+    .size-control{display:flex;align-items:center;gap:8px;padding:8px 11px;border-radius:999px;background:#f3eee5;font-weight:700}
+    .control-btn{border:0;border-radius:999px;padding:10px 13px;background:#eee8de;color:#332f2a;font-weight:700}
+    .control-btn.active{background:#4a443d;color:#fff}
+    .control-btn.danger{color:#a14d46;background:#f7e6e3}
+    .canvas-wrap{overflow:hidden;border:1px solid #ded5c7;border-radius:18px;background:#fff;touch-action:none}
+    #drawCanvas{display:block;width:100%;height:auto;background:#fff;touch-action:none;cursor:crosshair}
+    .bottom{display:flex;justify-content:center;margin-top:18px}
+    .submit{min-width:min(430px,100%);padding:16px 28px;border:0;border-radius:999px;background:linear-gradient(180deg,#c8eba8 0%,#addb84 58%,#97c970 100%);color:#35512c;box-shadow:0 8px 0 #7ead59,0 14px 28px rgba(92,126,65,.22),inset 0 2px 0 rgba(255,255,255,.72);font-weight:700;font-size:1.18rem;transform:translateY(0);transition:transform .12s ease,box-shadow .12s ease}
+    .submit:hover{transform:translateY(-2px);box-shadow:0 10px 0 #7ead59,0 16px 30px rgba(92,126,65,.24),inset 0 2px 0 rgba(255,255,255,.78)}
+    .submit:active{transform:translateY(6px);box-shadow:0 2px 0 #7ead59,0 8px 18px rgba(92,126,65,.2),inset 0 1px 0 rgba(255,255,255,.55)}
+    .submit:disabled{opacity:.5;cursor:not-allowed}
+    .status{min-height:23px;margin:11px 0 0;text-align:center;white-space:pre-line;line-height:1.4}
+    .status.error{color:#a94f47}.status.ok{color:#347435}
+    .debug{margin:5px 0 0;text-align:center;color:#8b8276;font-size:.76rem}
+    .success{display:none;position:fixed;inset:0;z-index:50;align-items:center;justify-content:center;padding:24px;background:rgba(38,31,23,.72)}
+    .success.show{display:flex}
+    .success-card{width:min(580px,100%);padding:24px;background:#fffaf1;border-radius:26px;box-shadow:0 24px 70px rgba(0,0,0,.3);text-align:center}
+    .success-card img{width:100%;max-height:360px;object-fit:contain;border-radius:15px;background:#fff}
+    .success-card h2{margin:16px 0 7px;font-family:"Nanum Pen Script","Gaegu",cursive;font-size:2.5rem;font-weight:400}
+    .success-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+    .success-actions a,.success-actions button{padding:14px;border:0;border-radius:999px;text-decoration:none;color:#27231e;font-weight:700}
+    .gallery-link{background:#cbe5f3}.next{background:#f0d56f}
+    @media(max-width:760px){.toolbar{align-items:flex-start;flex-direction:column}.success-actions{grid-template-columns:1fr}.color-dot{width:31px;height:31px}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="header">
+      <h1>우리의 축제 한 장</h1>
+      <p>그림을 그리고 디지털 갤러리에 전시해보세요.</p>
+    </header>
+    <section class="book">
+      <div class="rings" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="toolbar">
+        <div class="palette" aria-label="색상 선택">
+          <button class="color-dot selected" style="--dot:#222222" data-color="#222222" aria-label="검정"></button>
+          <button class="color-dot" style="--dot:#666666" data-color="#666666" aria-label="회색"></button>
+          <button class="color-dot" style="--dot:#e95f62" data-color="#e95f62" aria-label="빨강"></button>
+          <button class="color-dot" style="--dot:#f28b73" data-color="#f28b73" aria-label="코랄"></button>
+          <button class="color-dot" style="--dot:#f4aa4b" data-color="#f4aa4b" aria-label="주황"></button>
+          <button class="color-dot" style="--dot:#f6d65f" data-color="#f6d65f" aria-label="노랑"></button>
+          <button class="color-dot" style="--dot:#7fba59" data-color="#7fba59" aria-label="초록"></button>
+          <button class="color-dot" style="--dot:#71cdbb" data-color="#71cdbb" aria-label="민트"></button>
+          <button class="color-dot" style="--dot:#60ade5" data-color="#60ade5" aria-label="파랑"></button>
+          <button class="color-dot" style="--dot:#4967b2" data-color="#4967b2" aria-label="남색"></button>
+          <button class="color-dot" style="--dot:#9d70cb" data-color="#9d70cb" aria-label="보라"></button>
+          <button class="color-dot" style="--dot:#ef91b6" data-color="#ef91b6" aria-label="분홍"></button>
+          <button class="color-dot" style="--dot:#8c603f" data-color="#8c603f" aria-label="갈색"></button>
+        </div>
+        <div class="controls">
+          <label class="size-control">굵기 <input id="brushSize" type="range" min="2" max="40" value="7"></label>
+          <button id="eraserBtn" class="control-btn">지우개</button>
+          <button id="undoBtn" class="control-btn">되돌리기</button>
+          <button id="clearBtn" class="control-btn danger">전체 지우기</button>
+        </div>
+      </div>
+      <div class="canvas-wrap"><canvas id="drawCanvas" width="1400" height="900"></canvas></div>
+      <div class="bottom"><button id="submitBtn" class="submit">전시하기</button></div>
+      <p id="status" class="status" role="status"></p>
+      <p id="debug" class="debug">연결 확인 중...</p>
+    </section>
+  </main>
+  <div id="success" class="success">
+    <div class="success-card">
+      <img id="successImage" alt="방금 전시한 작품">
+      <h2>전시되었어요!</h2>
+      <div class="success-actions">
+        <a class="gallery-link" href="./gallery.html">디지털 갤러리 보기</a>
+        <button id="nextBtn" class="next">다음 참여자</button>
+      </div>
+      <p><span id="countdown">10</span>초 후 자동으로 다음 참여 화면으로 돌아갑니다.</p>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./config.js"></script>
+  <script src="./assets/supabase.js"></script>
+  <script src="./assets/app.js"></script>
+</body>
+</html>
