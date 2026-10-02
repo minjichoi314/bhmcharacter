@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#275649">
+  <title>디지털 갤러리</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&display=swap');
+
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%}
+
+    body{
+      min-height:100vh;
+      font-family:"Gaegu","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,.018) 0,
+          rgba(255,255,255,.018) 1px,
+          transparent 1px,
+          transparent 5px
+        ),
+        #275649;
+    }
+
+    .frame{
+      min-height:100vh;
+      border:18px solid #8d653e;
+      box-shadow:
+        inset 0 0 0 4px #c18b57,
+        inset 0 0 30px rgba(0,0,0,.34);
+    }
+
+    .shell{
+      width:min(1600px,100%);
+      margin:0 auto;
+      padding:28px clamp(18px,3vw,42px) 60px;
+    }
+
+    .head{
+      color:#f5f0dc;
+      text-align:center;
+      margin-bottom:28px;
+    }
+
+    .head .eyebrow{
+      margin:0;
+      color:#d7eadf;
+      letter-spacing:.15em;
+      font-weight:700;
+    }
+
+    .head h1{
+      margin:5px 0 0;
+      font-family:"Nanum Pen Script","Gaegu",cursive;
+      font-weight:400;
+      font-size:clamp(3.3rem,7vw,6rem);
+      line-height:.9;
+    }
+
+    .head p{
+      margin:12px 0 0;
+      color:#dce8df;
+      font-size:1.1rem;
+    }
+
+    .head::after{
+      content:"";
+      display:block;
+      width:min(520px,70%);
+      height:3px;
+      margin:14px auto 0;
+      background:
+        repeating-linear-gradient(
+          to right,
+          rgba(244,241,220,.9) 0 16px,
+          transparent 16px 24px
+        );
+      opacity:.7;
+    }
+
+    .status{
+      margin-top:9px;
+      color:#c8dccf;
+      font-size:.9rem;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:28px 22px;
+      align-items:start;
+    }
+
+    .art-note{
+      position:relative;
+      padding:14px 14px 10px;
+      border-radius:4px;
+      background:var(--note-bg,#fff2a9);
+      box-shadow:
+        0 10px 18px rgba(0,0,0,.22),
+        0 2px 0 rgba(255,255,255,.3) inset;
+      transform:rotate(var(--tilt,-1deg));
+    }
+
+    .art-note:nth-child(4n+1){--note-bg:#fff0a6}
+    .art-note:nth-child(4n+2){--note-bg:#ccebd5}
+    .art-note:nth-child(4n+3){--note-bg:#cfe7f6}
+    .art-note:nth-child(4n+4){--note-bg:#efd5e1}
+
+    .masking-tape{
+      position:absolute;
+      left:50%;
+      top:-14px;
+      width:92px;
+      height:28px;
+      transform:translateX(-50%) rotate(-2deg);
+      background:
+        repeating-linear-gradient(
+          90deg,
+          rgba(255,255,255,.18) 0 5px,
+          rgba(0,0,0,.018) 5px 6px
+        ),
+        rgba(246,221,175,.92);
+      box-shadow:0 2px 4px rgba(0,0,0,.12);
+    }
+
+    .art-note:nth-child(even) .masking-tape{
+      transform:translateX(-50%) rotate(2deg);
+    }
+
+    .art-note img{
+      display:block;
+      width:100%;
+      aspect-ratio:14/9;
+      object-fit:cover;
+      background:#fff;
+      border:1px solid rgba(60,50,30,.12);
+    }
+
+    .meta{
+      margin:7px 2px 0;
+      color:#666051;
+      font-size:.75rem;
+    }
+
+    .empty{
+      padding:80px 20px;
+      color:#e5eee8;
+      text-align:center;
+      border:2px dashed rgba(240,245,238,.4);
+      border-radius:18px;
+      font-family:"Nanum Pen Script","Gaegu",cursive;
+      font-size:2rem;
+    }
+
+    @media(max-width:1100px){
+      .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    }
+
+    @media(max-width:760px){
+      .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+
+    @media(max-width:480px){
+      .grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="frame">
+    <main class="shell">
+
+      <header class="head">
+        <p class="eyebrow">DIGITAL GALLERY</p>
+        <h1 id="eventName">우리의 축제 한 장</h1>
+        <p>학생들이 만든 그림이 칠판에 하나씩 붙습니다.</p>
+        <div id="galleryStatus" class="status"></div>
+      </header>
+
+      <section id="galleryGrid" class="grid" aria-live="polite"></section>
+
+      <div id="emptyState" class="empty">
+        첫 작품을 기다리고 있어요 :)
+      </div>
+
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./config.js"></script>
+  <script src="./assets/supabase.js"></script>
+  <script src="./assets/gallery.js"></script>
+</body>
+</html>
